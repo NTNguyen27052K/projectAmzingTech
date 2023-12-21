@@ -1,0 +1,114 @@
+import React, { useEffect, useState } from "react";
+import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getEmployee } from "../../redux/slices/employeeSli";
+
+const EmployeeManager = () => {
+  //   const dispatch = useDispatch();
+
+  //   const { employee } = useSelector((state) => state.employee);
+
+  //   useEffect(() => {
+  //     dispatch(getEmployee());
+  //   });
+
+  //   const [options, setOptions] = useState("");
+  //   const [open, setOpen] = useState(false);
+  //   const hide = () => {
+  //     setOpen(false);
+  //   };
+  //   const handleOpenChange = (newOpen) => {
+  //     setOpen(newOpen);
+  //   };
+  //   const columns = [
+  //     {
+  //       title: "Id",
+  //       dataIndex: "employeesId",
+  //       key: "employeesId",
+  //     },
+  //     {
+  //       title: "Tên",
+  //       dataIndex: "projectName",
+  //       key: "projectName",
+  //     },
+  //     {
+  //       title: "SĐT",
+  //       dataIndex: "categoryName",
+  //       key: "categoryName",
+  //     },
+  //     {
+  //       title: "Email",
+  //       dataIndex: "creator",
+  //       key: "creator",
+  //     },
+  //     {
+  //       title: "Chức vụ",
+  //       dataIndex: "members",
+  //       key: "members",
+  //     },
+  //     {
+  //       title: "Phòng ban",
+  //       dataIndex: "members",
+  //       key: "members",
+  //     },
+  //     {
+  //       title: "Action",
+  //       key: "action",
+  //       render: (_, record, index) => (
+  //         <Space size="middle" key={index}>
+  //           <div className="flex justify-between">
+  //             <button
+  //               type="button"
+  //               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5   dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mr-1"
+  //               onClick={() => {
+  //                 projectServ
+  //                   .deleteProject(record.id)
+  //                   .then((result) => {
+  //                     console.log(result);
+  //                     dispatch(getAllProject());
+  //                   })
+  //                   .catch((error) => {
+  //                     console.log(error);
+  //                     alert(error.response.data.content);
+  //                   });
+  //               }}
+  //             >
+  //               <i className="fa-solid fa-trash"></i>
+  //             </button>
+  //             <NavLink to={`edit/${record.id}`}>
+  //               <button
+  //                 type="button"
+  //                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ml-1"
+  //                 // onClick={showModal}
+  //                 onClick={() => {}}
+  //               >
+  //                 <i className="fa-solid fa-pen"></i>
+  //               </button>
+  //             </NavLink>
+  //             {/* Form */}
+  //           </div>
+  //         </Space>
+  //       ),
+  //     },
+  //   ];
+  //   const employeeData = employee.map((item, index) => {
+  //     return {
+  //       ...item,
+  //       key: index,
+  //     };
+  //   });
+  return (
+    <div>
+      {/* {console.log(employee)} */}
+      <h1>Quản lý nhân viên</h1>
+    </div>
+  );
+};
+export default EmployeeManager;
+// <Table
+//   columns={columns}
+//   dataSource={employeeData}
+//   pagination={{
+//     pageSize: 6,
+//   }}
+// />

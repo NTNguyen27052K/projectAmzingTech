@@ -1,0 +1,279 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "employeesName": "Nguyen A HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 1,
+      "departmentId": 1,
+      "companyId": 1
+    },
+    {
+      "id": 2,
+      "employeesName": "Nguyen B HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 1
+    },
+    {
+      "id": 3,
+      "employeesName": "Nguyen C HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 1
+    },
+    {
+      "id": 4,
+      "employeesName": "Nguyen D HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 1
+    },
+    {
+      "id": 5,
+      "employeesName": "Nguyen E HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 1
+    },
+    {
+      "id": 6,
+      "employeesName": "Nguyen F HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 1
+    },
+    {
+      "id": 7,
+      "employeesName": "Nguyen G HN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 1
+    },
+    {
+      "id": 8,
+      "employeesName": "Nguyen A HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 1,
+      "departmentId": 1,
+      "companyId": 2
+    },
+    {
+      "id": 9,
+      "employeesName": "Nguyen B HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 2
+    },
+    {
+      "id": 10,
+      "employeesName": "Nguyen C HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 2
+    },
+    {
+      "id": 11,
+      "employeesName": "Nguyen D HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 2
+    },
+    {
+      "id": 12,
+      "employeesName": "Nguyen E HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 2
+    },
+    {
+      "id": 13,
+      "employeesName": "Nguyen F HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 2
+    },
+    {
+      "id": 14,
+      "employeesName": "Nguyen G HCM",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 2
+    },
+    {
+      "id": 15,
+      "employeesName": "Nguyen A DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 1,
+      "departmentId": 1,
+      "companyId": 3
+    },
+    {
+      "id": 16,
+      "employeesName": "Nguyen B DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 3
+    },
+    {
+      "id": 17,
+      "employeesName": "Nguyen C DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 3
+    },
+    {
+      "id": 18,
+      "employeesName": "Nguyen D DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 2,
+      "departmentId": 2,
+      "companyId": 3
+    },
+    {
+      "id": 19,
+      "employeesName": "Nguyen E DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 3
+    },
+    {
+      "id": 20,
+      "employeesName": "Nguyen F DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 3
+    },
+    {
+      "id": 21,
+      "employeesName": "Nguyen G DN",
+      "employeePhone": "0123456789",
+      "employeeEmail": "nXtRc@example.com",
+      "positionId": 3,
+      "departmentId": 3,
+      "companyId": 3
+    }
+  ],
+  "position": [
+    {
+      "id": 1,
+      "positionName": "Quản lý"
+    },
+    {
+      "id": 2,
+      "positionName": "Kỹ sư"
+    },
+    {
+      "id": 3,
+      "positionName": "Kỹ thuật viên vận hành"
+    }
+  ],
+  "department": [
+    {
+      "id": 1,
+      "departmentName": "Phòng quản lý nhà máy"
+    },
+    {
+      "id": 2,
+      "departmentName": "Phòng kỹ thuật"
+    },
+    {
+      "id": 3,
+      "departmentName": "Phòng Quản lý nhân sự"
+    }
+  ],
+  "company": [
+    {
+      "id": 1,
+      "companyName": "Nhà máy nước HN"
+    },
+    {
+      "id": 2,
+      "companyName": "Nhà máy nước HCM"
+    },
+    {
+      "id": 3,
+      "companyName": "Nhà máy nước DN"
+    }
+  ],
+  "leaveApplicationForm": [
+    {
+      "id": 1,
+      "employeesId": 1,
+      "quantity": 1,
+      "discription": "Đơn xin nghỉ phép việc gia đình",
+      "status": "Đã xác nhận"
+    },
+    {
+      "id": 2,
+      "employeesId": 2,
+      "quantity": 2,
+      "discription": "Đơn xin nghỉ phép việc gia đình",
+      "status": "Đang xác nhận"
+    },
+    {
+      "id": 3,
+      "employeesId": 3,
+      "quantity": 3,
+      "discription": "Đơn xin nghỉ phép chở mẹ đi bơi",
+      "status": "Đã xác nhận"
+    },
+    {
+      "id": 4,
+      "employeesId": 4,
+      "quantity": 4,
+      "discription": "Đơn xin nghỉ phép thông thường",
+      "status": "Đã xác nhận"
+    },
+    {
+      "id": 5,
+      "employeesId": 5,
+      "quantity": 5,
+      "discription": "Đơn xin nghỉ phép có việc bận",
+      "status": "Đang xác nhận"
+    },
+    {
+      "id": 6,
+      "employeesId": 8,
+      "quantity": 6,
+      "discription": "Đơn xin nghị phép định kỳ",
+      "status": "Đang xử lý"
+    }
+  ]
+}
