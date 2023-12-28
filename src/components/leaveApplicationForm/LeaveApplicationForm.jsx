@@ -64,8 +64,13 @@ const LeaveApplicationForm = () => {
             }
             onClick={() => {
               leaveApplicationFormSer
-                .updateLeaveApplicationF(1, {
-                  status: "Đang xác nhận",
+                .updateLeaveApplicationF(record.id, {
+                  id: record.id,
+                  employeesId: record.employeesId,
+                  quantity: record.quantity,
+                  discription: record.discription,
+                  status:
+                    text === "Đã xác nhận" ? "Đang xác nhận" : "Đã xác nhận",
                 })
                 .then(() => {
                   setRefresh((prevRefresh) => !prevRefresh);

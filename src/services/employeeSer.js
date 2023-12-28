@@ -5,6 +5,6 @@ export const employeeSer = {
   //   return axios.get("http://localhost:8000/employees");
   // },
   getEmployeeByCompanyId: (id) => {
-    return id ? axios.get(`http://localhost:1000/companyCustom/${id}`) : [];
+    return id ? axios.get(`/companies/get-usersByCompanyId/${id}`) : [];
   },
 };

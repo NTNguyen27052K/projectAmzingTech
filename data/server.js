@@ -117,25 +117,7 @@ server.get("/companyCustom/:companyId", (req, res) => {
 // });
 
 //! ---------------------------------------- !\\
-// API leaveApplicationForm
 
-server.get("/leaveApplicationForm", (req, res) => {
-  const leaveALF = router.db.get("leaveApplicationForm").value();
-
-  const result = leaveALF.map((leaveALF) => {
-    const employeesLst = router.db
-      .get("employees")
-      .find({ id: leaveALF.employeesId })
-      .value();
-
-    return {
-      ...leaveALF,
-      employeesId: employeesLst,
-    };
-  });
-
-  res.json(result);
-});
 //! ---------------------------------------- !\\
 server.get("/company/:id/leaveALF", (req, res) => {
   const { id } = req.params;

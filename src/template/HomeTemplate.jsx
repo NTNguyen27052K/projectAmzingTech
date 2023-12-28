@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { Layout, Menu, Button, theme, Select } from "antd";
+import { Layout, Menu, Button, theme, Select, Modal } from "antd";
 import "./homeTemplate.scss";
 import {
   MenuFoldOutlined,
@@ -9,6 +9,9 @@ import {
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCompany } from "../redux/slices/companySli";
+import SignUp from "./SignUp";
+import { getDataLocal } from "../utils/localStore";
+import { jwtDecode } from "jwt-decode";
 
 const { Header, Sider, Content } = Layout;
 
@@ -20,9 +23,12 @@ const HomeTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [companyId, setCompanyId] = useState();
   const { company } = useSelector((state) => state.companyList);
-
+  if (getDataLocal("userLocal")?.accessToken) {
+    var { data } = jwtDecode(getDataLocal("userLocal")?.accessToken);
+  }
   useEffect(() => {
     dispatch(getAllCompany());
+    // console.log(data);
   }, []);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -33,14 +39,31 @@ const HomeTemplate = () => {
     return {
       ...item,
       key: index,
-      value: item.id,
-      label: item.companyName,
+      value: item.company_id,
+      label: item.company_name,
     };
   });
+  companyLst.unshift({
+    key: 4,
+    value: 0,
+    label: "All company",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <CompanyContext.Provider value={companyId}>
-      <Layout className="h-screen">
+      <Layout className="h-screen ">
         <Sider
           trigger={null}
           collapsible
@@ -64,16 +87,21 @@ const HomeTemplate = () => {
               {
                 key: "2",
                 icon: <i className="fa-solid fa-user-tie fa-sm"></i>,
-                label: "Quản lý công ty",
-              },
-              {
-                key: "3",
-                icon: <i className="fa-regular fa-envelope fa-sm"></i>,
                 label: (
                   <NavLink to="/leaveApplicationForm">
                     Quản lý nghỉ phép
                   </NavLink>
                 ),
+              },
+              {
+                key: "3",
+                icon: <i className="fa-regular fa-envelope fa-sm"></i>,
+                label: <NavLink to="/companyMgt">Quản lý Công ty</NavLink>,
+              },
+              {
+                key: "4",
+                icon: <i className="fa-regular fa-credit-card"></i>,
+                label: <NavLink to="/payroll">Tính lương</NavLink>,
               },
             ]}
           />
@@ -106,14 +134,33 @@ const HomeTemplate = () => {
                 size="large"
                 options={companyLst}
                 onChange={(value) => {
+                  // console.log(value);
                   setCompanyId(value);
                 }}
               />
             </div>
             <div className="mr-8">
-              <i className="fa-solid fa-ellipsis fa-md mr-2"></i>
-              <i className="fa-regular fa-user fa-md"></i>
-              <span className="ml-2">Admin</span>
+              {data?.user_name ? (
+                <p>{data?.user_name}</p>
+              ) : (
+                <Button type="default flex items-center" onClick={showModal}>
+                  <span className="mr-2">Sign Up</span>
+                  <i className="fa-solid fa-right-to-bracket"></i>
+                </Button>
+              )}
+              <Modal
+                title="Sign Up"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                okText={"Tạo đơn"}
+                okType="default"
+                cancelText="Huỷ"
+                footer={false}
+                className=""
+              >
+                <SignUp />
+              </Modal>
             </div>
           </Header>
           <Content

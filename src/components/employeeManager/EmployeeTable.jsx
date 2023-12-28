@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Table, Space, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getEmployee,
-  getEmployeeByCompanyId,
-} from "../../redux/slices/employeeSli";
+import { getEmployeeByCompanyId } from "../../redux/slices/employeeSli";
 import Loading from "../../pages/loading/Loading";
 import { CompanyContext } from "../../template/HomeTemplate";
 
@@ -93,6 +90,7 @@ const EmployeeTable = () => {
   });
   return (
     <div className="relative">
+      {console.log(companyId)}
       {isLoading ? <Loading /> : <></>}
       <Table
         bordered

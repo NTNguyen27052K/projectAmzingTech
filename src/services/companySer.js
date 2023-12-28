@@ -1,8 +1,8 @@
-import axios from "axios";
+import { https } from "./config";
 
 export const companySer = {
   getAllCompany: () => {
-    return axios.get("http://localhost:1000/company");
+    return https.get("/companies/get-allCompanies");
   },
   // getEmployeeByCompanyId: (id) => {
   //   return axios.get(`http://localhost:1000/companyCustom/${id}`);

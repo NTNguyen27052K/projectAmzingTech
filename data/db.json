@@ -221,24 +221,27 @@
   "company": [
     {
       "id": 1,
-      "companyName": "Nhà máy nước HN"
+      "companyName": "Nhà máy nước HN",
+      "companyAddress": "HCM"
     },
     {
       "id": 2,
-      "companyName": "Nhà máy nước HCM"
+      "companyName": "Nhà máy nước HCM",
+      "companyAddress": "HN"
     },
     {
       "id": 3,
-      "companyName": "Nhà máy nước DN"
+      "companyName": "Nhà máy nước DN",
+      "companyAddress": "DN"
     }
   ],
   "leaveApplicationForm": [
     {
       "id": 1,
-      "employeesId": 1,
-      "quantity": 1,
+      "employeesId": 2,
+      "quantity": 2,
       "discription": "Đơn xin nghỉ phép việc gia đình",
-      "status": "Đã xác nhận"
+      "status": "Đang xác nhận"
     },
     {
       "id": 2,
