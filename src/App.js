@@ -13,12 +13,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomeTemplate />}>
           <Route index element={<EmployeeManager />} />
-          {/* <Route
+          <Route
             path="/leaveApplicationForm"
             element={<LeaveApplicationForm />}
-          /> */}
-          <Route path="companyMgt" element={<CompanyMgt />} />
-          {/* <Route path="payroll" element={<Payroll />} /> */}
+          />
+          {/* <Route path="companyMgt" element={<CompanyMgt />} /> */}
+          <Route path="payroll" element={<Payroll />} />
         </Route>
       </Routes>
     </BrowserRouter>

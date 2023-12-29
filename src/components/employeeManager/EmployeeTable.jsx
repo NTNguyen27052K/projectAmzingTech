@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeByCompanyId } from "../../redux/slices/employeeSli";
 import Loading from "../../pages/loading/Loading";
 import { CompanyContext } from "../../template/HomeTemplate";
+import { employeeSer } from "../../services/employeeSer";
 
 const EmployeeTable = () => {
   const companyId = useContext(CompanyContext);
@@ -61,7 +62,20 @@ const EmployeeTable = () => {
       render: (text, record, index) => (
         <Space size="middle" key={index}>
           <div className="flex justify-between">
-            <Button type="primary" className="bg-blue-600 mr-1">
+            <Button
+              type="primary"
+              className="bg-blue-600 mr-1"
+              onClick={() =>
+                employeeSer
+                  .deleteEmployee(text.user_id, {
+                    ...text,
+                    user_deleted: !text.user_deleted,
+                  })
+                  .then(() => {
+                    dispatch(getEmployeeByCompanyId(companyId));
+                  })
+              }
+            >
               <i className="fa-solid fa-trash"></i>
             </Button>
             <Button type="primary" className="bg-blue-600">
@@ -74,23 +88,24 @@ const EmployeeTable = () => {
     },
   ];
 
-  const { companyName, id, employees } = employeesL;
+  // const { companyName, id, employees } = employeesL;
 
-  const employeeData = employees?.map((employee, index) => {
-    return {
-      ...employee,
-      key: employee.id,
-      employeesId: employee.id,
-      employeesName: employee.employeesName,
-      employeePhone: employee.employeePhone,
-      employeeEmail: employee.employeeEmail,
-      employeePosition: employee.positionId.positionName,
-      employeeDepartment: employee.departmentId.departmentName,
-    };
-  });
+  const employeeData = employeesL
+    ?.filter((employee) => employee.user_deleted === false)
+    ?.map((employee, index) => {
+      return {
+        ...employee,
+        key: index,
+        employeesId: employee.user_id,
+        employeesName: employee.user_name,
+        employeePhone: employee.phone,
+        employeeEmail: employee.email,
+        employeePosition: employee.position?.position_name,
+        employeeDepartment: employee.departments?.departments_name,
+      };
+    });
   return (
     <div className="relative">
-      {console.log(companyId)}
       {isLoading ? <Loading /> : <></>}
       <Table
         bordered

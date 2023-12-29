@@ -5,15 +5,26 @@ export const getEmployeeByCompanyId = createAsyncThunk(
   "employees/getEmployeeByCompanyId",
   async (id) => {
     try {
-      const res = await employeeSer.getEmployeeByCompanyId(id);
+      if (id == 0) {
+        const res = await employeeSer.getAllUser();
+        console.log("test");
+        return res.data;
+      } else {
+        const res = await employeeSer.getEmployeeByCompanyId(id);
 
-      return res.data;
+        return res.data;
+      }
     } catch (error) {
       console.log(error);
     }
   }
 );
-
+export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+});
 const initialState = {
   employeesL: [],
   isLoading: false,

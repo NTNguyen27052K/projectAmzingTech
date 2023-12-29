@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCompany } from "../redux/slices/companySli";
 import SignUp from "./SignUp";
-import { getDataLocal } from "../utils/localStore";
+import { getDataLocal, setLocal } from "../utils/localStore";
 import { jwtDecode } from "jwt-decode";
 
 const { Header, Sider, Content } = Layout;
@@ -96,7 +96,7 @@ const HomeTemplate = () => {
               {
                 key: "3",
                 icon: <i className="fa-regular fa-envelope fa-sm"></i>,
-                label: <NavLink to="/companyMgt">Quản lý Công ty</NavLink>,
+                label: <NavLink to="/">Quản lý công ty</NavLink>,
               },
               {
                 key: "4",
@@ -141,11 +141,23 @@ const HomeTemplate = () => {
             </div>
             <div className="mr-8">
               {data?.user_name ? (
-                <p>{data?.user_name}</p>
+                <div>
+                  <p>
+                    <span>{data?.user_name}</span>
+                    <button
+                      onClick={() => {
+                        setLocal("userLocal", null);
+                        window.location.reload();
+                      }}
+                    >
+                      <i className="fa-solid fa-right-to-bracket ml-2"></i>
+                    </button>
+                  </p>
+                </div>
               ) : (
                 <Button type="default flex items-center" onClick={showModal}>
                   <span className="mr-2">Sign Up</span>
-                  <i className="fa-solid fa-right-to-bracket"></i>
+                  <i className="fa-solid fa-left-to-bracket"></i>
                 </Button>
               )}
               <Modal

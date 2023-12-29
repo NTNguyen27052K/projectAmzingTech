@@ -7,4 +7,7 @@ export const userSer = {
   signUp: (data) => {
     return https.post("/auth/login", data);
   },
+  //   getAllUser: () => {
+  //     return https.get("/users/get-users");
+  //   }
 };

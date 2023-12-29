@@ -19,7 +19,7 @@ const EmployeeManager = (companyId) => {
     setIsModalOpen(false);
   };
   return (
-    <CompanyContext.Provider value={companyNameS}>
+    <div>
       <Collapse
         className="mb-3"
         items={[
@@ -35,17 +35,21 @@ const EmployeeManager = (companyId) => {
         <FloatButton icon={<UserAddOutlined />} onClick={() => showModal()} />
       </Tooltip>
       <Modal
-        title="Basic Modal"
+        style={{
+          top: 20,
+        }}
+        title="Thêm nhân viên"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
         okText={"Thêm nhân viên"}
         okType="default"
-        cancelText="Huỷ"
+        footer={false}
+        // cancelText="Huỷ"
       >
         <AddEmployeeManager />
       </Modal>
-    </CompanyContext.Provider>
+    </div>
   );
 };
 

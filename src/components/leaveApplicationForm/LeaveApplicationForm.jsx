@@ -6,6 +6,7 @@ import { leaveApplicationFormSer } from "../../services/leaveApplicationF_Ser";
 import Loading from "../../pages/loading/Loading";
 import CreateLAF from "./CreateLAF";
 import { CompanyContext } from "../../template/HomeTemplate";
+import { getDataLocal, getUserDataLocal } from "../../utils/localStore";
 
 const LeaveApplicationForm = () => {
   const companyId = useContext(CompanyContext);
@@ -14,7 +15,7 @@ const LeaveApplicationForm = () => {
   const [refresh, setRefresh] = useState(false);
 
   const { listLALF, isLoading } = useSelector((state) => state.leaveALF);
-
+  const userLocal = getUserDataLocal("userLocal");
   useEffect(() => {
     dispatch(getLeaveApplicationF(companyId));
   }, [companyId, refresh]);
@@ -44,8 +45,8 @@ const LeaveApplicationForm = () => {
       key: "status",
       align: "center",
       render: (text, index) => (
-        <Tag color={text === "Đã xác nhận" ? "green" : "red"} key={index}>
-          {text}
+        <Tag color={text ? "green" : "red"} key={index}>
+          {text ? "Đã xác nhận" : "Đang xác nhận"}
         </Tag>
       ),
     },
@@ -62,15 +63,17 @@ const LeaveApplicationForm = () => {
               (text === "Đã xác nhận" ? "bg-red-600" : "bg-blue-600") +
               " w-[90px]"
             }
+            disabled={userLocal?.roles_name == "admin" ? false : true}
             onClick={() => {
+              console.log(record);
               leaveApplicationFormSer
-                .updateLeaveApplicationF(record.id, {
-                  id: record.id,
-                  employeesId: record.employeesId,
-                  quantity: record.quantity,
+                .updateLeaveApplicationF(record.Leave_form_id, {
+                  Leave_form_deleted: record.Leave_form_deleted,
+                  Leave_form_id: Number(record.Leave_form_id),
+                  Leave_form_quantity: Number(record.Leave_form_quantity),
                   discription: record.discription,
-                  status:
-                    text === "Đã xác nhận" ? "Đang xác nhận" : "Đã xác nhận",
+                  user_id: Number(record.user_id),
+                  status: text ? false : true,
                 })
                 .then(() => {
                   setRefresh((prevRefresh) => !prevRefresh);
@@ -80,22 +83,24 @@ const LeaveApplicationForm = () => {
                 });
             }}
           >
-            {text === "Đã xác nhận" ? "Hủy" : "Xác nhận"}
+            {record.status ? "Hủy" : "Xác nhận"}
           </Button>
         </Space>
       ),
     },
   ];
 
-  const leaveApplicationFormData = listLALF.leaveApplicationForms?.map(
-    (item, index) => {
-      return {
-        ...item,
-        key: index,
-        employeesName: item.employee.employeesName,
-      };
-    }
-  );
+  const leaveApplicationFormData = listLALF?.map((item, index) => {
+    console.log(item);
+    return {
+      ...item,
+      key: index,
+      employeesName: item.users.user_name,
+      quantity: item.Leave_form_quantity,
+      discription: item.discription,
+      status: item.status,
+    };
+  });
 
   return (
     <div className="relative">

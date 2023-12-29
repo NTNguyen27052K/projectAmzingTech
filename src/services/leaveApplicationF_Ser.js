@@ -1,10 +1,11 @@
 import axios from "axios";
+import { https } from "./config";
 
 export const leaveApplicationFormSer = {
   getleaveApplicationF: (id) => {
-    return id ? axios.get(`http://localhost:1000/company/${id}/leaveALF`) : [];
+    return id ? https.get(`/leaver-form/getLeaveFormsByCompanyId/${id}`) : [];
   },
   updateLeaveApplicationF: (id, data) => {
-    return axios.put(`http://localhost:1000/leaveApplicationForm/${id}`, data);
+    return https.put(`/leaver-form/updateLeaverForm/${id}`, data);
   },
 };
