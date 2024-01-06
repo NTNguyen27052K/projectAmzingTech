@@ -10,14 +10,14 @@ import {
   FloatButton,
   Modal,
 } from "antd";
-import CompanyMgtSearch from "./CompanyMgtSearch";
-import { UserAddOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import AddCompany from "./AddCompany";
+import CompanyMgtSearch from "./CompanyMgtSearch";
 
 export const CompanySearch = createContext();
 const CompanyMgt = () => {
   const { company, isLoading } = useSelector((state) => state.companyList);
-  const [companyData, setCompanyData] = useState();
+  // const [companyData, setCompanyData] = useState();
 
   useEffect(() => {
     const companyOptions = company.map((comp) => ({
@@ -27,7 +27,7 @@ const CompanyMgt = () => {
       label: comp.companyName,
     }));
 
-    setCompanyData(companyOptions);
+    // setCompanyData(companyOptions);
     // const companyOptions = company
     //   .filter((comp) =>
     //     comp.companyName
@@ -52,6 +52,18 @@ const CompanyMgt = () => {
       title: "Tên công ty",
       dataIndex: "companyName",
       key: "companyName",
+      align: "center",
+    },
+    {
+      title: "Email",
+      dataIndex: "companyEmail",
+      key: "companyEmail",
+      align: "center",
+    },
+    {
+      title: "Phone",
+      dataIndex: "companyPhone",
+      key: "companyPhone",
       align: "center",
     },
     {
@@ -95,10 +107,19 @@ const CompanyMgt = () => {
 
   const handleSearch = (value) => {
     setCompanyNameS(value);
-    console.log(value);
-    console.log(companyNameS);
-    // Xử lý giá trị nhận được từ component con ở đây
   };
+  const companyData = company
+    ?.filter((company) => company?.company_deleted === false)
+    ?.map((company, index) => {
+      return {
+        key: index,
+        id: company.company_id,
+        companyName: company.company_name,
+        companyAddress: company.company_address,
+        companyEmail: company.company_email,
+        companyPhone: company.company_phone,
+      };
+    });
   return (
     <div>
       <Collapse
@@ -121,7 +142,10 @@ const CompanyMgt = () => {
         }}
       />
       <Tooltip placement="left" title={"Thêm công ty"}>
-        <FloatButton onClick={() => showModal()} icon={<UserAddOutlined />} />
+        <FloatButton
+          onClick={() => showModal()}
+          icon={<PlusCircleOutlined />}
+        />
       </Tooltip>
       <Modal
         title="Thêm công ty"

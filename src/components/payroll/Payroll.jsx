@@ -1,140 +1,148 @@
-import React from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Input } from "antd";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Table, Button, Space } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../pages/loading/Loading";
+import { getAllSalariesTable } from "../../redux/slices/salariesSli";
+import { CompanyContext } from "../../template/HomeTemplate";
 
 const Payroll = () => {
-  const formik = useFormik({
-    initialValues: {
-      luongCB: "",
-      phuCap: 1,
-      soNgayLV: "",
-      luong: "",
-    },
-    onSubmit: (values) => {
-      let luong = ((values.luongCB * values.phuCap) / 26) * values.soNgayLV;
-      // userSer
-      //   .signUp(values)
-      //   .then((result) => {
-      //     setLocal("userLocal", result?.data);
-      //     // dispatch(setDataName(result?.data));
-      //     // setTimeout(() => {
-      //     //   navigate("/project");
-      //     // }, [2000]);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      formik.setValues({
-        ...values,
-        luong: luong.toLocaleString("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }), // Đặt giá trị lương vào ô luong và làm tròn đến 2 chữ số thập phân
-      });
-    },
+  const companyId = useContext(CompanyContext);
+  const { salaries, isLoading } = useSelector((state) => state.salariesTable);
 
-    // validationSchema: Yup.object({
-    //   email: Yup.string()
-    //     .min(1, "Must be 1 characters or hight")
-    //     .required("Empty"),
-    //   password: Yup.string()
-    //     .min(1, "Must be 1 characters or hight")
-    //     .required("Empty"),
-    // }),
-  });
+  const dispatch = useDispatch();
 
-  const { handleSubmit, handleChange, handleBlur, errors, touched } = formik;
+  useEffect(() => {
+    dispatch(getAllSalariesTable(companyId));
+  }, [companyId]);
+  const columns = [
+    {
+      title: "Id",
+      dataIndex: "salary_id",
+      key: "salary_id",
+      align: "center",
+    },
+    {
+      title: "Họ và Tên",
+      dataIndex: "user_name",
+      key: "user_name",
+      align: "center",
+    },
+    {
+      title: "Lương cơ bản",
+      dataIndex: "base_salary",
+      key: "base_salary",
+      align: "center",
+      render: (text) => (
+        <span>
+          {new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(text)}
+        </span>
+      ),
+    },
+    {
+      title: "Trợ cấp",
+      dataIndex: "subsidies_salary",
+      key: "subsidies_salary",
+      align: "center",
+      render: (text) => (
+        <span>
+          {new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(text)}
+        </span>
+      ),
+    },
+    {
+      title: "Số ngày LV",
+      dataIndex: "working_days",
+      key: "working_days",
+      align: "center",
+    },
+    {
+      title: "Lương",
+      dataIndex: "salary",
+      key: "salary",
+      align: "center",
+      render: (text) => (
+        <span>
+          {new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(text)}
+        </span>
+      ),
+    },
+    {
+      title: "Action",
+      key: "action",
+      align: "center",
+
+      render: (text, record, index) => (
+        <Space size="middle" key={index}>
+          <div className="flex justify-between">
+            <Button
+              type="primary"
+              className="bg-blue-600 mr-1"
+              // onClick={() =>
+              //   employeeSer
+              //     .editEmployee(text.user_id, {
+              //       ...record,
+              //       user_deleted: !text.user_deleted,
+              //     })
+              //     .then((result) => {
+              //       dispatch(getEmployeeByCompanyId(companyId));
+              //     })
+              //     .catch((error) => {
+              //       message.error(error.response.data.message);
+              //     })
+              // }
+            >
+              <i className="fa-solid fa-trash"></i>
+            </Button>
+
+            <Button
+              type="primary"
+              className="bg-blue-600"
+              // onClick={() => showModal(text.user_id)}
+            >
+              <i className="fa-solid fa-pen"></i>
+            </Button>
+
+            {/* Form */}
+          </div>
+        </Space>
+      ),
+    },
+  ];
+  const salariesTableData = salaries
+    ?.filter((salaries) => salaries.salary_deleted === false)
+    ?.map((salaries, index) => {
+      return {
+        key: index,
+        salary_id: salaries.user_id,
+        user_name: salaries.users.user_name,
+        base_salary: salaries.base_salary,
+        subsidies_salary: salaries.subsidies_salary,
+        working_days: salaries.working_days,
+        salary: salaries.salary,
+      };
+    });
   return (
-    <form onSubmit={handleSubmit} className="mt-5 w-1/2">
-      {/* Lương */}
-      <div className="mb-3 ">
-        <label className="block mb-2 text-sm font-medium text-gray-900">
-          Lương cơ bản
-        </label>
-        <Input
-          type="text"
-          name="luongCB"
-          onBlur={handleBlur}
-          onChange={(e) => {
-            handleChange(e);
-          }}
-          // status={touched.luongCB && errors.luongCB ? "error" : null}
-          placeholder="Nhập lương cơ bản"
-          className="py-2"
-        />
-
-        {/* {touched.email && errors.email ? (
-          <p className="text-red-500">{errors.email}</p>
-        ) : null} */}
-      </div>
-      {/* Lương */}
-      <div className="mb-3 ">
-        <label className="block mb-2 text-sm font-medium text-gray-900">
-          Phụ cấp
-        </label>
-        <Input
-          type="text"
-          name="phuCap"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          // status={touched.email && errors.email ? "error" : null}
-          placeholder="Nhập phụ cấp nếu có"
-          className="py-2"
-        />
-
-        {/* {touched.email && errors.email ? (
-          <p className="text-red-500">{errors.email}</p>
-        ) : null} */}
-      </div>
-      {/* Lương */}
-      <div className="mb-3 ">
-        <label className="block mb-2 text-sm font-medium text-gray-900">
-          Số ngày làm việc
-        </label>
-        <Input
-          type="text"
-          name="soNgayLV"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          // status={touched.email && errors.email ? "error" : null}
-          placeholder="Nhập số ngay làm việc"
-          className="py-2"
-        />
-
-        {/* {touched.email && errors.email ? (
-          <p className="text-red-500">{errors.email}</p>
-        ) : null} */}
-      </div>
-      {/* Lương */}
-      <div className="mb-3 ">
-        <label className="block mb-2 text-sm font-medium text-gray-900">
-          Tiền lương
-        </label>
-        <Input
-          type="text"
-          name="luong"
-          // onBlur={handleBlur}
-          // onChange={handleChange}
-          // status={touched.email && errors.email ? "error" : null}
-          value={formik.values.luong}
-          placeholder=""
-          className="py-2"
-        />
-
-        {/* {touched.email && errors.email ? (
-          <p className="text-red-500">{errors.email}</p>
-        ) : null} */}
-      </div>
-      <button
-        // onClick={info}
-        type="submit"
-        className="text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-blue-800  focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3"
-      >
-        Tính tiền lương
-      </button>
-    </form>
+    <div className="relative">
+      {isLoading ? <Loading /> : <></>}
+      <Table
+        bordered
+        size="small"
+        columns={columns}
+        dataSource={salariesTableData}
+        pagination={{
+          pageSize: 6,
+        }}
+      />
+    </div>
   );
 };
 

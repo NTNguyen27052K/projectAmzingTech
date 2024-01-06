@@ -6,6 +6,6 @@ export const leaveApplicationFormSer = {
     return id ? https.get(`/leaver-form/getLeaveFormsByCompanyId/${id}`) : [];
   },
   updateLeaveApplicationF: (id, data) => {
-    return https.put(`/leaver-form/updateLeaverForm/${id}`, data);
+    return https.post(`/leaver-form/updateLeaverForm/${id}`, data);
   },
 };

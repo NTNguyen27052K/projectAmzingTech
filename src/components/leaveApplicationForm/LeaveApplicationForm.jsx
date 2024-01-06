@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLeaveApplicationF } from "../../redux/slices/leaveApplicationF_Sli";
-import { Table, Space, Button, Tag } from "antd";
+import { Table, Space, Button, Tag, message } from "antd";
 import { leaveApplicationFormSer } from "../../services/leaveApplicationF_Ser";
 import Loading from "../../pages/loading/Loading";
 import CreateLAF from "./CreateLAF";
 import { CompanyContext } from "../../template/HomeTemplate";
-import { getDataLocal, getUserDataLocal } from "../../utils/localStore";
 
 const LeaveApplicationForm = () => {
   const companyId = useContext(CompanyContext);
@@ -15,7 +14,7 @@ const LeaveApplicationForm = () => {
   const [refresh, setRefresh] = useState(false);
 
   const { listLALF, isLoading } = useSelector((state) => state.leaveALF);
-  const userLocal = getUserDataLocal("userLocal");
+
   useEffect(() => {
     dispatch(getLeaveApplicationF(companyId));
   }, [companyId, refresh]);
@@ -63,23 +62,20 @@ const LeaveApplicationForm = () => {
               (text === "Đã xác nhận" ? "bg-red-600" : "bg-blue-600") +
               " w-[90px]"
             }
-            disabled={userLocal?.roles_name == "admin" ? false : true}
             onClick={() => {
-              console.log(record);
+              console.log({
+                status: text ? false : true,
+              });
+
               leaveApplicationFormSer
                 .updateLeaveApplicationF(record.Leave_form_id, {
-                  Leave_form_deleted: record.Leave_form_deleted,
-                  Leave_form_id: Number(record.Leave_form_id),
-                  Leave_form_quantity: Number(record.Leave_form_quantity),
-                  discription: record.discription,
-                  user_id: Number(record.user_id),
                   status: text ? false : true,
                 })
                 .then(() => {
                   setRefresh((prevRefresh) => !prevRefresh);
                 })
                 .catch((error) => {
-                  console.error("Lỗi khi cập nhật:", error);
+                  message.error(error.response.data.message);
                 });
             }}
           >
@@ -91,7 +87,7 @@ const LeaveApplicationForm = () => {
   ];
 
   const leaveApplicationFormData = listLALF?.map((item, index) => {
-    console.log(item);
+    // console.log(item);
     return {
       ...item,
       key: index,

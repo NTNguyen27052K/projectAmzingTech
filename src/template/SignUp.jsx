@@ -2,11 +2,10 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Input } from "antd";
-import { NavLink } from "react-router-dom";
 import { userSer } from "../services/userSer";
 import { setLocal } from "../utils/localStore";
 
-const SignUp = () => {
+const SignUp = ({ handleCancel }) => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -17,6 +16,8 @@ const SignUp = () => {
         .signUp(values)
         .then((result) => {
           setLocal("userLocal", result?.data);
+          handleCancel();
+          window.location.reload();
           // dispatch(setDataName(result?.data));
           // setTimeout(() => {
           //   navigate("/project");
@@ -78,20 +79,29 @@ const SignUp = () => {
         ) : null}
       </div>
 
-      <button
-        // onClick={info}
-        type="submit"
-        className="text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-blue-800  focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3"
-      >
-        Login
-      </button>
-      <p className="mb-3">
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={handleCancel}
+          className="text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-blue-800  focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        >
+          Cancel
+        </button>
+        <button
+          // onClick={info}
+          type="submit"
+          className="text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-blue-800  focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ml-3"
+        >
+          Login
+        </button>
+      </div>
+      {/* <p className="mb-3">
         Already have an account?
         <br />
         <NavLink to={"/signup"} className="text-blue-500 ">
           Sign Up
         </NavLink>
-      </p>
+      </p> */}
     </form>
   );
 };

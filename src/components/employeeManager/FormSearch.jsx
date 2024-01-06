@@ -1,22 +1,29 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 
-const FormSearch = () => {
+const FormSearch = ({ sendDataToParent }) => {
+  const sendDataToParentOnClick = (data) => {
+    sendDataToParent(data);
+  };
+  const onFinish = (values) => {
+    // console.log("Finish:", values);
+    sendDataToParentOnClick(values.name);
+  };
   return (
-    <Form name="basic" className="" layout="inline">
-      <Form.Item label="Tên" className="mr-3">
+    <Form onFinish={onFinish} name="basic" className="" layout="inline">
+      <Form.Item name={"name"} label="Tên" className="mr-3">
         <Input />
       </Form.Item>
-      <Form.Item label="Chức vụ" className="mr-3">
+      <Form.Item name={"position"} label="Chức vụ" className="mr-3">
         <Input />
       </Form.Item>
-      <Form.Item label="SĐT" className="mr-3">
+      <Form.Item name={"phone"} label="SĐT" className="mr-3">
         <Input />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" className="bg-blue-600">
+        <Button type="primary" htmlType="submit" className="bg-blue-600">
           <svg
-            class="w-4 h-4"
+            className="w-4 h-4"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -24,9 +31,9 @@ const FormSearch = () => {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             />
           </svg>

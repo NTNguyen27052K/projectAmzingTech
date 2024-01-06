@@ -1,30 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { employeeSer } from "../../services/employeeSer";
+import { message } from "antd";
 
 export const getEmployeeByCompanyId = createAsyncThunk(
   "employees/getEmployeeByCompanyId",
   async (id) => {
     try {
-      if (id == 0) {
-        const res = await employeeSer.getAllUser();
-        console.log("test");
-        return res.data;
-      } else {
-        const res = await employeeSer.getEmployeeByCompanyId(id);
-
-        return res.data;
+      if (id === null || id === undefined) {
+        return [];
       }
+      const res = await employeeSer.getEmployeeByCompanyId(id);
+      return res.data;
     } catch (error) {
-      console.log(error);
+      // return "Chưa đăng nhập!";
+      message.error(error.response.data.message);
+      // console.log(error);
     }
   }
 );
-export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
-  try {
-  } catch (error) {
-    console.log(error);
-  }
-});
+
 const initialState = {
   employeesL: [],
   isLoading: false,

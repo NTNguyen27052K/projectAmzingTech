@@ -10,4 +10,7 @@ export const userSer = {
   //   getAllUser: () => {
   //     return https.get("/users/get-users");
   //   }
+  createUser: (data) => {
+    return https.post("/users/createUser", data);
+  },
 };

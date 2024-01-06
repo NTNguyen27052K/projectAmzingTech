@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { companySer } from "../../services/companySer";
 import { userSer } from "../../services/userSer";
+import { getDataLocal } from "../../utils/localStore";
 
 export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
   try {
@@ -12,12 +13,13 @@ export const getAllUser = createAsyncThunk("users/getAllUser", async () => {
 });
 
 const initialState = {
-  users: [],
+  // users: [],
   isLoading: false,
+  userAccount: getDataLocal("userLocal"),
 };
 
 export const userSlice = createSlice({
-  name: "users",
+  name: "userAccount",
   initialState,
   reducers: {},
 

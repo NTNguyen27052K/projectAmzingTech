@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { Layout, Menu, Button, theme, Select, Modal } from "antd";
 import "./homeTemplate.scss";
@@ -7,34 +7,31 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCompany } from "../redux/slices/companySli";
+import { useSelector, useDispatch } from "react-redux";
 import SignUp from "./SignUp";
-import { getDataLocal, setLocal } from "../utils/localStore";
-import { jwtDecode } from "jwt-decode";
+import { setLocal } from "../utils/localStore";
+import { getAllCompany } from "../redux/slices/companySli";
 
 const { Header, Sider, Content } = Layout;
 
 export const CompanyContext = createContext();
 
 const HomeTemplate = () => {
-  const dispatch = useDispatch();
-
   const [collapsed, setCollapsed] = useState(false);
   const [companyId, setCompanyId] = useState();
+  const dispatch = useDispatch();
   const { company } = useSelector((state) => state.companyList);
-  if (getDataLocal("userLocal")?.accessToken) {
-    var { data } = jwtDecode(getDataLocal("userLocal")?.accessToken);
-  }
-  useEffect(() => {
-    dispatch(getAllCompany());
-    // console.log(data);
-  }, []);
+
+  const { userAccount } = useSelector((state) => state.users);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  useEffect(() => {
+    dispatch(getAllCompany());
+  }, []);
 
-  const companyLst = company.map((item, index) => {
+  const companyLst = company?.map((item, index) => {
     // console.log(item);
     return {
       ...item,
@@ -96,7 +93,7 @@ const HomeTemplate = () => {
               {
                 key: "3",
                 icon: <i className="fa-regular fa-envelope fa-sm"></i>,
-                label: <NavLink to="/">Quản lý công ty</NavLink>,
+                label: <NavLink to="/companyMgt">Quản lý công ty</NavLink>,
               },
               {
                 key: "4",
@@ -140,19 +137,23 @@ const HomeTemplate = () => {
               />
             </div>
             <div className="mr-8">
-              {data?.user_name ? (
-                <div>
-                  <p>
-                    <span>{data?.user_name}</span>
-                    <button
-                      onClick={() => {
-                        setLocal("userLocal", null);
-                        window.location.reload();
-                      }}
-                    >
-                      <i className="fa-solid fa-right-to-bracket ml-2"></i>
-                    </button>
-                  </p>
+              {userAccount?.user_name ? (
+                <div className="flex items-center">
+                  <img
+                    src="https://picsum.photos/200/300"
+                    alt=""
+                    className="rounded-full w-8 h-8 mr-3"
+                  />
+                  <p className="mr-3">{userAccount?.user_name}</p>
+                  <button
+                    onClick={() => {
+                      // dispatch(setDataName(""));
+                      setLocal("userLocal", null);
+                      window.location.reload();
+                    }}
+                  >
+                    <i className="fa-solid fa-right-from-bracket fa-xl"></i>
+                  </button>
                 </div>
               ) : (
                 <Button type="default flex items-center" onClick={showModal}>
@@ -165,13 +166,13 @@ const HomeTemplate = () => {
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                okText={"Tạo đơn"}
+                // okText={"Tạo đơn"}
                 okType="default"
-                cancelText="Huỷ"
+                // cancelText="Huỷ"
                 footer={false}
                 className=""
               >
-                <SignUp />
+                <SignUp handleCancel={handleCancel} />
               </Modal>
             </div>
           </Header>
